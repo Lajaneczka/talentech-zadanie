@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import { Container, Dimmer, Loader } from 'semantic-ui-react'  
+import { People } from './components/People';
+// import { Films } from './components/Films';
 
 function App() {
+  const [people, setPeople] = useState([]);
+  // const [films, setFilms] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+useEffect(() => {
+  fetch("https://swapi.dev/api/people/")
+      .then((resp) => resp.json())
+      .then((data) => {
+          setPeople(data.results);
+      }).catch(err => console.log(err))
+setLoading(false)
+}, []);
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Container>
+   {loading ? (
+     <Dimmer active inverted>
+       <Loader inverted>Loading</Loader>
+     </Dimmer>
+   ) : (
+   <People data={people}/>
+   )}
+   </Container>
   );
 }
 
 export default App;
+
+
+// useEffect(() => {
+//   async function fetchPeople() {
+//     let res = await fetch("https://swapi.dev/api/people/")
+//     let data = res.json();
+//     setPeople(data)
+//   }
+//   fetchPeople()
+// }, [])
+
+// console.log('people', people)
+
