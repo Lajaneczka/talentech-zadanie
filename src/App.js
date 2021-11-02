@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Container, Dimmer, Loader } from 'semantic-ui-react'  
-import { People } from './components/People';
-// import { Films } from './components/Films';
+import { Container, Dimmer, Loader } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'  
+import {Details} from './components/Details'
+import { SearchFilms } from './components/SearchFilms';
 
-function App() {
+export const App = () => {
   const [people, setPeople] = useState([]);
-  // const [films, setFilms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showDetails, setShowDetails] = useState(false)
+
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s');
+  const [searchQuery, setSearchQuery] = useState(query || '');
+  const filteredPeople = filterPeople(people, searchQuery);
 
 
 useEffect(() => {
@@ -19,6 +25,21 @@ useEffect(() => {
 setLoading(false)
 }, []);
 
+const handlePress = () => {
+  setShowDetails(!showDetails)
+}
+
+const filterPeople = (people, query) => {
+  if (!query) {
+      return people;
+  }
+
+//   return people.filter((person) => {
+//       const personName = person.name.toLowerCase();
+//       return personName.includes(query);
+//   });
+// };
+
 
 
   return (
@@ -28,23 +49,56 @@ setLoading(false)
        <Loader inverted>Loading</Loader>
      </Dimmer>
    ) : (
-   <People data={people}/>
+   
+    <Table basic>
+
+    <Table.Body>
+    <h1>Name</h1>
+        {people.map((person, i) => {
+            return ( 
+                <Table.Row>
+                <Table.Cell key={i} >{person.name}
+                <button onClick={handlePress}>
+                    detailss
+        
+          </button>{ showDetails &&
+          (
+        <Details
+        key={i}
+        height={person.height}
+        mass={person.mass}
+        haircolor={person.hair_color}
+        skincolor={person.skin_color}
+        eyecolor={person.eye_color}
+        birthyear={person.birth_year}
+        gender={person.gender}
+        homeworld={person.homeworld}
+        films={person.films}
+        />
+    )
+}
+
+                </Table.Cell>
+            </Table.Row>
+            )
+           
+        })}
+    </Table.Body>
+  </Table>
    )}
+
+           <div>
+            <SearchFilms
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+            />
+            <ul>
+                {filteredPeople.map((person, i) => (
+                    <li key={i}>{person.films}</li>
+                ))}
+            </ul>
+        </div>
+
    </Container>
   );
 }
-
-export default App;
-
-
-// useEffect(() => {
-//   async function fetchPeople() {
-//     let res = await fetch("https://swapi.dev/api/people/")
-//     let data = res.json();
-//     setPeople(data)
-//   }
-//   fetchPeople()
-// }, [])
-
-// console.log('people', people)
-
