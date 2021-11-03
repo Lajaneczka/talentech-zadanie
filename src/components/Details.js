@@ -29,7 +29,7 @@ export const Details = ({height, mass, haircolor, skincolor, eyecolor, birthyear
                 <Table.Cell>homeworld:{homeworld}</Table.Cell>
                 </Table.Row>
                 <Table.Row>
-                <Table.Cell>films:{films.map(el => <p>{el}</p>)}</Table.Cell>
+                <Table.Cell>films:{films}</Table.Cell>
                 </Table.Row>
         </Table>
     )

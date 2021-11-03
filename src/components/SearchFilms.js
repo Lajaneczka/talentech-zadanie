@@ -1,46 +1,42 @@
-import React,  { useState, useEffect } from 'react'
+import React,  { useState} from 'react'
+import { FilmDetails } from './FilmDetails';
 
 export const SearchFilms = ({people}) => {
-
-      const [films, setFilms] = useState([]);
       const [search, setSearch] = useState('');
 
-      useEffect(() => {
-        fetch("https://swapi.dev/api/films/")
-            .then((resp) => resp.json())
-            .then((data) => {
-           
-                setFilms(data.results);
-                //    console.log('data',data)
-            }).catch(err => console.log(err))
-      }, []);
-
-console.log('films', films)
-
-
-
-
-const filterFilms = (searchInput) => {
-    people
-    .filter(film => {
-      if (searchInput === '') return true
-      return film.title
-        .toLowerCase()
-        .includes(searchInput.toLowerCase())
-    })
-  }
-
-
     return (
-        <form action="/" method="get">
-        <label htmlFor="header-search">
-            <span className="visually-hidden">Search blog posts</span>
-        </label>
-        <input type="text" placeholder="Search" className="films-input" onChange={() => filterFilms(search)} value={search}/>
-        <button type="submit">Search</button>
+        <div>
+        <form>
+          <label htmlFor="header-search">
+            <span className="visually-hidden">Search </span>
+          </label>
+          <input
+            type="text"
+            placeholder="Search"
+            className="films-input"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button type="submit">Search</button>
         </form>
+        <ul>
+          {people
+            .filter((person) =>
+              person.name.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((details) => details.films)
+            .map((film) =>
+              film.map(item => (
+                <FilmDetails data={item} />
+               
+                
+              ))
+            )}
+        </ul>
+      </div>
     )
 }
+
+
 
 
 

@@ -1,34 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Container, Dimmer, Loader } from 'semantic-ui-react'
-import { Table } from 'semantic-ui-react'  
+import { Container, Dimmer, Loader, Table, Button} from 'semantic-ui-react' 
 import {Details} from './components/Details'
 import { SearchFilms } from './components/SearchFilms';
 
 function App() {
   const [people, setPeople] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showDetails, setShowDetails] = useState(false)
-  
+  const [showDetails, setShowDetails] = useState(false);
+  const [activePerson, setActivePerson] = useState('')
 
 
 useEffect(() => {
   fetch("https://swapi.dev/api/people/")
       .then((resp) => resp.json())
       .then((data) => {
-        // console.log('data',data)
           setPeople(data.results);
       }).catch(err => console.log(err))
 setLoading(false)
-// console.log('people', people)
 }, []);
 
 
-
-
-
-
-const handlePress = () => {
+const handlePress = (e, id) => {
+  setActivePerson(id)
   setShowDetails(!showDetails)
 }
 
@@ -48,10 +42,11 @@ const handlePress = () => {
             return ( 
                 <Table.Row>
                 <Table.Cell key={i} >{person.name}
-                <button onClick={handlePress}>
-                    detailss
+                <Button   onClick={(e) => handlePress(e, person.name)}>
+                   DETAILS
         
-          </button>{ showDetails &&
+          </Button>
+          { (showDetails && person.name===activePerson) &&
           (
         <Details
         key={i}
@@ -67,7 +62,6 @@ const handlePress = () => {
         />
     )
 }
-
                 </Table.Cell>
             </Table.Row>
             )
