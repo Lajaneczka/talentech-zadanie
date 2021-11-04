@@ -61,7 +61,6 @@
             birthyear={person.birth_year}
             gender={person.gender}
             homeworld={person.homeworld}
-            films={person.films}
             />
         )
     }
