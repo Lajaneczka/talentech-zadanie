@@ -1,31 +1,82 @@
 
-          .container__films{
-            height: 100vh;
-            margin-top: 100px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: column;
-        }
+            .container__films{
+                height: 100vh;
+                margin-top: 100px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-direction: column;
+            }
+            
+            .container__films-details{
+                padding-top: 50px;
+                padding-bottom: 100px;
+            }
+
+            .container__films-searched{
+                height: 100vh;
+            }
+
+            .loader{
+                margin-top: 100px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+
+            .films-input {
+                padding: 5px;
+                box-sizing: border-box;
+                border-radius: 3px;
+                border: 1px solid #ccc;
+                box-shadow: inset 0 1px 4px hsla(0, 0%, 15%, 0.59);
+                width: 100%;
+            }
+
+            .films-input::placeholder {
+                color: #fbba1f;
+                font-style: italic;
+            }
+
+            .films-input:focus {
+                border-color: #000;
+            }
+
         
-        
-        .container__films-details{
-            padding-top: 50px;
-            padding-bottom: 100px;
-        }
+            .button {
+                margin: 10px;
+                display: inline-block;
+                cursor: pointer;
+                border:0;
+                background: #6495ED;
+                color: #fff;
+                border-radius: 3px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+                outline: none;
+              }
+              .button:hover {
+                background: #F68657;
+              }
+              .button:active {
+                box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+              }
 
-        .container__films-searched{
-            height: 100vh;
-        }
+              .btn-search {
+                margin-left: 10px;
+                display: inline-block;
+                padding: 5px 10px;
+                cursor: pointer;
+                border:0;
+                background: #FF8C00;
+                color: #fff;
+                border-radius: 3px;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+                outline: none;
+              }
 
-        .loader{
-            margin-top: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        .button {
-            margin: 10px;
-        }
+              .form__container {
+                  display: flex;
+                  flex-direction: row;
+              }

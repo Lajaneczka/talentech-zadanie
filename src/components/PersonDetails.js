@@ -6,7 +6,7 @@
                     return (
                         <Table>
                                 <Table.Row>
-                                <Table.Cell>Height:{height}</Table.Cell>
+                                <Table.Cell>Height: {height}</Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                 <Table.Cell>Mass: {mass}</Table.Cell>

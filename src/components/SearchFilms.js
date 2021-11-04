@@ -4,20 +4,20 @@
     export const SearchFilms = ({people}) => {
           const [search, setSearch] = useState('');
     
-
+          const onSubmit = (e) => {
+            e.preventDefault();
+          }
         return (
             <div className='container__films'>
-            <form>
-              <label htmlFor="header-search">
-                <span className="visually-hidden">Search Film </span>
-              </label>
+            <form className='form__container'>
+            
               <input
                 type="text"
                 placeholder="Search Film"
                 className="films-input"
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <button type="submit">Search</button>
+              <button type="submit" onClick={(e) => onSubmit(e)} className='btn-search'>Search</button>
             </form>
             {
               search && (

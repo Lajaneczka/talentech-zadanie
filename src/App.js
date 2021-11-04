@@ -37,7 +37,7 @@
     <Table basic>
 
         <Table.Body>
-        <h1>Name</h1>
+        <h1>Person name</h1>
             {people.map((person, i) => {
                 return ( 
 
