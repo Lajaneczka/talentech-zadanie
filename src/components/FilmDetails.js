@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from 'react'
-
-export const  FilmDetails = ({data}) => {
-
-
-    const [filmDetails, setFilmDetails] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [showDetails, setShowDetails] = useState(false);
-
-    
-useEffect(() => {
-    fetch(`${data}`)
-        .then((resp) => resp.json())
-        .then((data) => {
-          setFilmDetails(data);
-        }).catch(err => console.log(err))
-//   setLoading(false)
-  }, [...filmDetails]);
-
-
-
-
-  return(
-<div>
-  <p>title: {filmDetails.title}</p>
-  <p>release_date: {filmDetails.release_date}</p>
-  <p>director: {filmDetails.director}</p>
+  import React, { useState, useEffect } from 'react'
   
-</div>
-  )
-}
+
+  export const  FilmDetails = ({data}) => {
+
+      const [filmDetails, setFilmDetails] = useState([]);
+
+      
+  useEffect(() => {
+      fetch(`${data}`)
+          .then((resp) => resp.json())
+          .then((data) => {
+            setFilmDetails(data);
+          }).catch(err => console.log(err))
+    }, [...filmDetails]);
+
+
+    return(
+  <div className='filmdetails__container'>
+    <h3>title: {filmDetails.title}</h3>
+    <h4>director: {filmDetails.director}</h4>
+    <h4>release_date: {filmDetails.release_date}</h4>
+  </div>
+    )
+  }
 
 

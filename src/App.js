@@ -1,83 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import { Container, Dimmer, Loader, Table, Button} from 'semantic-ui-react' 
-import {Details} from './components/Details'
-import { SearchFilms } from './components/SearchFilms';
+  import React, { useState, useEffect } from 'react';
+  import './App.css';
+  import { Container, Table, Loader} from 'semantic-ui-react' 
+  import {PersonDetails} from './components/PersonDetails'
+  import { SearchFilms } from './components/SearchFilms';
 
-function App() {
-  const [people, setPeople] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [showDetails, setShowDetails] = useState(false);
-  const [activePerson, setActivePerson] = useState('')
-
-
-useEffect(() => {
-  fetch("https://swapi.dev/api/people/")
-      .then((resp) => resp.json())
-      .then((data) => {
-          setPeople(data.results);
-      }).catch(err => console.log(err))
-setLoading(false)
-}, []);
+  function App() {
+    const [people, setPeople] = useState([]);
+    const [showDetails, setShowDetails] = useState(false);
+    const [activePerson, setActivePerson] = useState('')
 
 
-const handlePress = (e, id) => {
-  setActivePerson(id)
-  setShowDetails(!showDetails)
-}
+  useEffect(() => {
+    fetch("https://swapi.dev/api/people/")
+        .then((resp) => resp.json())
+        .then((data) => {
+            setPeople(data.results);
+        }).catch(err => console.log(err))
+  }, []);
 
-  return (
-   <Container>
-   {loading ? (
-     <Dimmer active inverted>
-       <Loader inverted>Loading</Loader>
-     </Dimmer>
-   ) : (
-   
-    <Table basic>
 
-    <Table.Body>
-    <h1>Name</h1>
-        {people.map((person, i) => {
-            return ( 
-                <Table.Row>
-                <Table.Cell key={i} >{person.name}
-                <Button   onClick={(e) => handlePress(e, person.name)}>
-                   DETAILS
-        
-          </Button>
-          { (showDetails && person.name===activePerson) &&
-          (
-        <Details
-        key={i}
-        height={person.height}
-        mass={person.mass}
-        haircolor={person.hair_color}
-        skincolor={person.skin_color}
-        eyecolor={person.eye_color}
-        birthyear={person.birth_year}
-        gender={person.gender}
-        homeworld={person.homeworld}
-        films={person.films}
-        />
+  const handlePress = (e, id) => {
+    setActivePerson(id)
+    setShowDetails(!showDetails)
+  }
+
+  if (people.length === 0) {
+    return (
+      <div className='loader'>
+        <p>Loading</p>
+    <Loader active inline='centered' />
+    </div>
     )
-}
-                </Table.Cell>
-            </Table.Row>
-            )
-           
-        })}
-    </Table.Body>
-  </Table>
-   )}
+  } 
+    return (
+    <Container >
+  <Table basic>
 
-<SearchFilms people={people}/>
+      <Table.Body>
+      <h1>Name</h1>
+          {people.map((person, i) => {
+              return ( 
 
-   </Container>
-  );
-}
+                  <Table.Row >
+                   
+                  <Table.Cell key={i} >{person.name}
+                  <button   onClick={(e) => handlePress(e, person.name)} className='button' >
+                    Details
+          
+            </button>
 
-export default App;
+            { (showDetails && person.name===activePerson) &&
+            (
+          <PersonDetails
+          key={i}
+          height={person.height}
+          mass={person.mass}
+          haircolor={person.hair_color}
+          skincolor={person.skin_color}
+          eyecolor={person.eye_color}
+          birthyear={person.birth_year}
+          gender={person.gender}
+          homeworld={person.homeworld}
+          films={person.films}
+          />
+      )
+  }
+                  </Table.Cell>
+                 
+              </Table.Row>
+         
+              )
+            
+          })}
+      </Table.Body>
+    </Table>
+    
+
+  <SearchFilms people={people}/>
+
+    </Container>
+    );
+  }
+
+  export default App;
 
 
 
